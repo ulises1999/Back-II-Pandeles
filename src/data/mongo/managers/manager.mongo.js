@@ -1,5 +1,5 @@
-import User from "./models/users.model.js";
-
+import User from "../models/users.model.js";
+import Product from "../models/products.model.js";
 class Manager {
   constructor(model) {
     this.model = model;
@@ -15,5 +15,5 @@ class Manager {
 export default Manager;
 
 const usersManager = new Manager(User);
-
-export { usersManager };
+const productsManager = new Manager(Product);
+export { usersManager, productsManager };

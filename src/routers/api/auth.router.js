@@ -1,4 +1,5 @@
 import CustomRouter from "../custom.router.js";
+import passport from "../../middlewares/passport.mid.js";
 
 const register = async (req, res) => {
     const response = req.user;
@@ -33,8 +34,8 @@ class AuthRouter extends CustomRouter {
         this.init();
     }
     init = () => {
-        this.create("/register",["PUBLIC"],passportCb("register"),register);
-        this.create("/login",["PUBLIC"],passportCb("login"),login);
+        this.create("/register",["PUBLIC"],register);
+        this.create("/login",["PUBLIC"],login);
         this.create("/online", ["USER", "ADMIN"], online);
         this.create("/signout", ["USER", "ADMIN"], signout);
         this.read("/bad-auth", ["PUBLIC"], badAuth);

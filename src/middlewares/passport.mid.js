@@ -28,6 +28,7 @@ passport.use(
           });
         }
         data.password = createHash(password);
+
         const response = await usersManager.createOne(data);
         const tokenPayload = {
           user_id: response._id,
@@ -35,8 +36,11 @@ passport.use(
           role: response.role,
         };
         const token = createToken(tokenPayload);
-        req.token = token;
-        done(null, response);
+        
+        // devolvé el token junto con el usuario
+        done(null, { ...response._doc, token });
+        
+
       } catch (error) {
         done(error);
       }
@@ -69,8 +73,10 @@ passport.use(
           role: response.role,
         };
         const token = createToken(data);
-        req.token = token;
-        done(null, response);
+        
+        // devolvé el token junto con el usuario
+        done(null, { ...response._doc, token });
+        
       } catch (error) {
         done(error);
       }

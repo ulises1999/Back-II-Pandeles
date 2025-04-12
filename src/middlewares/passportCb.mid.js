@@ -12,6 +12,7 @@ const passportCb = (strategy) => {
         return next(error);
       }
       req.user = user;
+      req.token= user.token;
       next();
     })(req, res, next);
   };

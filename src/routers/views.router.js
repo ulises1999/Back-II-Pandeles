@@ -25,12 +25,12 @@ class ViewsRouter extends CustomRouter {
   };
 
   profileView = async (req, res) => {
-    const { users_id } = req.params;
-    const profile = await usersManager.readById(users_id);
+    const { user_id } = req.params;
+    const profile = await usersManager.readById(user_id);
     if (!profile) {
       return res.status(404).render("error", {
         title: "Usuario no encontrado",
-        message: `No se encontró el perfil con ID: ${users_id}`,
+        message: `No se encontró el perfil con ID: ${user_id}`,
       });
     }
     res.status(200).render("profile", { title: "PROFILE", profile });
@@ -52,10 +52,13 @@ class ViewsRouter extends CustomRouter {
   };
 
   cartView = async (req, res) => {
-    const { users_id } = req.params;
-    const carts = await cartsManager.readProductsFromUser(users_id);
-    const totalData = await cartsManager.totalToPay(users_id);
-    const total = totalData?.[0]?.total || 0;
+    const { user_id } = req.params;
+    const carts = await cartsManager.readProductsFromUser(user_id);
+
+    const total = carts.reduce((acc, item) => {
+      return acc + item.quantity * item.product.price;
+    }, 0);
+
     res.status(200).render("cart", { title: "CART", carts, total });
   };
 

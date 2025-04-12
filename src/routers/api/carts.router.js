@@ -1,5 +1,5 @@
 import CustomRouter from "../custom.router.js";
-
+import { cartsManager } from "../../data/mongo/managers/carts.mongo.js";
 
 const addProductToCart = async (req, res) => {
   const { product_id, quantity } = req.body;
@@ -9,7 +9,7 @@ const addProductToCart = async (req, res) => {
     user_id,
     quantity
   );
-  res.json201(response)
+  res.json201(one)
 };
 const readProductsFromUser = async (req, res) => {
   const user_id = req.user._id;

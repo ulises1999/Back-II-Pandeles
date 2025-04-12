@@ -1,11 +1,5 @@
 import { connect } from "mongoose";
 
-/**
- * @dbConnect
- * se conecta a la base de datos
- * recibe un link de conexión a mongo
- * registra en la consola el éxito o el fracaso
- */
 const dbConnect = async (url) => {
   try {
     connect(url);

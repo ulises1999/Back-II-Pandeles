@@ -1,1 +1,14 @@
-<h1>INDEX VIEW</h1>
+<main class="d-flex flex-column align-items-center w-100 flex-grow-1">
+  <h1 class="bg-success-subtle p-2 text-center text-success w-100">COMMERCE PIÑA GUSTAVO</h1>
+  <section class="m-3 w-100 d-flex justify-content-evenly flex-wrap align-items-center">
+    {{#each product}}
+    <div class="card m-1" style="width: 18rem;">
+      <img src={{this.photo}} class="card-img-top object-fit-cover" alt={{this.title}} style=" height: 12rem">
+      <div class="card-body py-1 px-2 d-flex flex-column align-items-center">
+        <h5 class="card-title py-1">{{this.title}}</h5>
+        <a href="/product/{{this._id}}" class="btn btn-success py-1 px-2">info</a>
+      </div>
+    </div>
+    {{/each}}
+  </section>
+</main>

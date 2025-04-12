@@ -1,76 +1,71 @@
-import { Router } from "express";
+import CustomRouter from "./custom.router.js";
 import { usersManager, productsManager } from "../data/mongo/managers/manager.mongo.js";
 import { cartsManager } from "../data/mongo/managers/carts.mongo.js";
-const viewsRouter = Router();
 
-const homeView = async (req, res) => {
-  try {
-    const products = await productsManager.readAll();
-    return res.status(200).render("index", { products, title: "HOME" });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).render("error");
+class ViewsRouter extends CustomRouter {
+  constructor() {
+    super();
+    this.read("/", ["PUBLIC"], this.homeView);
+    this.read("/profile/:user_id", ["USER", "ADMIN"], this.profileView);
+    this.read("/product/:product_id", ["PUBLIC"], this.detailsView);
+    this.read("/cart/:user_id", ["USER"], this.cartView);
+    this.read("/register", ["PUBLIC"], this.registerView);
+    this.read("/login", ["PUBLIC"], this.loginView);
   }
-};
-const profileView = async (req, res) => {
-  try {
-    const { user_id } = req.params;
-    const profile = await usersManager.readById(user_id);
-    return res.status(200).render("profile", { title: "PROFILE", profile });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).render("error");
-  }
-};
-const detailsView = async (req, res) => {
-  try {
+
+  homeView = async (req, res) => {
+    const product = await productsManager.readAll();
+    if (!product || product.length === 0) {
+      return res.status(404).render("error", {
+        title: "Error",
+        message: "No hay productos para mostrar",
+      });
+    }
+    res.status(200).render("index", { product, title: "HOME" });
+  };
+
+  profileView = async (req, res) => {
+    const { users_id } = req.params;
+    const profile = await usersManager.readById(users_id);
+    if (!profile) {
+      return res.status(404).render("error", {
+        title: "Usuario no encontrado",
+        message: `No se encontró el perfil con ID: ${users_id}`,
+      });
+    }
+    res.status(200).render("profile", { title: "PROFILE", profile });
+  };
+
+  detailsView = async (req, res) => {
     const { product_id } = req.params;
     const product = await productsManager.readById(product_id);
-    return res
-      .status(200)
-      .render("product", { title: product.title.toUpperCase(), product });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).render("error");
-  }
-};
-const cartView = async (req, res) => {
-  try {
-    const { user_id } = req.params;
-    const carts = await cartsManager.readProductsFromUser(user_id);
-    const total = await cartsManager.totalToPay(user_id);
-    return res
-      .status(200)
-      .render("cart", { title: "CART", carts, total: total[0].total });
-  } catch (error) {
-    console.log(error);
-    return res.status(500).render("error");
-  }
-};
-const registerView = (req, res) => {
-  try {
+    if (!product) {
+      return res.status(404).render("error", {
+        title: "Producto no encontrado",
+        message: `No se encontró el producto con ID: ${product_id}`,
+      });
+    }
+    res.status(200).render("product", {
+      title: product.title.toUpperCase(),
+      product,
+    });
+  };
+
+  cartView = async (req, res) => {
+    const { users_id } = req.params;
+    const carts = await cartsManager.readProductsFromUser(users_id);
+    const totalData = await cartsManager.totalToPay(users_id);
+    const total = totalData?.[0]?.total || 0;
+    res.status(200).render("cart", { title: "CART", carts, total });
+  };
+
+  registerView = (req, res) => {
     res.status(200).render("register", { title: "REGISTER FORM" });
-  } catch (error) {
-    console.log(error);
-    const statusCode = error.statusCode || 500;
-    res.status(statusCode).render("error");
-  }
-};
-const loginView = (req, res) => {
-  try {
+  };
+
+  loginView = (req, res) => {
     res.status(200).render("login", { title: "LOGIN FORM" });
-  } catch (error) {
-    console.log(error);
-    const statusCode = error.statusCode || 500;
-    res.status(statusCode).render("error");
-  }
-};
-viewsRouter.get("/", homeView);
-viewsRouter.get("/profile/:user_id", profileView);
-viewsRouter.get("/product/:product_id", detailsView);
-viewsRouter.get("/cart/:user_id", cartView);
-viewsRouter.get("/register", registerView);
-viewsRouter.get("/login", loginView);
+  };
+}
 
-export default viewsRouter;
-
+export default new ViewsRouter().getRouter();

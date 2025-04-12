@@ -1,7 +1,6 @@
 import CustomRouter from "../custom.router.js";
 
 
-
 const addProductToCart = async (req, res) => {
   const { product_id, quantity } = req.body;
   const user_id = req.user._id;

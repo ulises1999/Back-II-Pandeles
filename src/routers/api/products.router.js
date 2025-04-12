@@ -5,38 +5,41 @@ import { Types } from "mongoose";
 const createOne = async (req, res) => {
   const data = req.body;
   const response = await productsManager.createOne(data);
-  res.json201(response);
+  res.json201(response)
 };
-
 const readAll = async (req, res) => {
   const filter = req.query;
   const response = await productsManager.readAll(filter);
-  if (response.length === 0) return res.json404("No products found");
-  res.json200(response);
+  if (response.length === 0) {
+    res.json404()
+  }
+  res.json200(response)
 };
-
 const readById = async (req, res) => {
   const { pid } = req.params;
   const response = await productsManager.readById(pid);
-  if (!response) return res.json404("Product not found");
-  res.json200(response);
+  if (!response) {
+    res.json404()
+  }
+  res.json200(response)
 };
-
 const updateById = async (req, res) => {
   const { pid } = req.params;
   const data = req.body;
-  const updated = await productsManager.updateById(pid, data);
-  if (!updated) return res.json404("Product not found for update");
-  res.json200(updated);
+  const response = await productsManager.readById(pid);
+  if (!response) {
+    res.json404()
+  }
+  res.json200(response)
 };
-
 const destroyById = async (req, res) => {
   const { pid } = req.params;
-  const deleted = await productsManager.destroyById(pid);
-  if (!deleted) return res.json404("Product not found for deletion");
-  res.json200(deleted);
+  const response = await productsManager.destroyById(pid);
+  if (!response) {
+    res.json404()
+  }
+  res.json200(response)
 };
-
 const pidParam = (req, res, next, pid) => {
   try {
     const isObjectId = Types.ObjectId.isValid(pid);
@@ -54,7 +57,6 @@ class ProductsRouter extends CustomRouter {
     super();
     this.init();
   }
-
   init = () => {
     this.create("/", ["ADMIN"], createOne);
     this.read("/", ["PUBLIC"], readAll);

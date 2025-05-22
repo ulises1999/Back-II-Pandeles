@@ -13,33 +13,4 @@
     {{/each}}
   </section>
 </main>
-<script src="/scripts/addtocart.js"></script>
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".add-to-cart-btn").forEach(btn => {
-      btn.addEventListener("click", async () => {
-        const product_id = btn.dataset.id;
-        try {
-          const response = await fetch("/api/carts", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({ product_id, quantity: 1 })
-          });
 
-          if (!response.ok) {
-            throw new Error("Error al agregar al carrito");
-          }
-
-          const result = await response.json();
-          alert("Producto agregado al carrito!");
-        } catch (err) {
-          console.error(err);
-          alert("Hubo un error al intentar agregar al carrito");
-        }
-      });
-    });
-  });
-</script>

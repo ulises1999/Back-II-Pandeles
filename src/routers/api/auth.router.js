@@ -1,41 +1,8 @@
 import CustomRouter from "../custom.router.js";
 import passport from "../../middlewares/passport.mid.js";
 import passportCb from "../../middlewares/passportCb.mid.js";
+import {register,login,me,google,online,badAuth,signout} from "../../controllers/auth.controllers.js";
 
-
-const register = async (req, res) => {
-  const response = req.user;
-  const token = req.token;
-  const opts = { maxAge: 60 * 60 * 24 * 7, httpOnly: true };
-  res.cookie("token", token, opts).json201(response, "Registered");
-};
-
-const login = async (req, res) => {
-  const response = req.user; 
-  const token = req.token;
-  const opts = { maxAge: 60 * 60 * 24 * 7, httpOnly: true };
-  res.cookie("token", token, opts).json200(response, "Logged in");
-};
-
-const online = async (req, res) => {
-  if (!req.user.user_id) {
-    return res.json401("User not authenticated");
-  }
-  res.json200({ user: req.user });
-};
-
-const signout = async (req, res) => {
-  res.clearCookie("token").json200(null, "Signed out");
-};
-
-const badAuth = async (req, res) => {
-  res.json401("Bad auth from redirect");
-};
-
-const google = async (req, res) => {
-  const response = req.user;
-  res.json200(response);
-};
 
 class AuthRouter extends CustomRouter {
   constructor() {
@@ -76,6 +43,7 @@ class AuthRouter extends CustomRouter {
       }),
       google
     );
+     this.read("/me" , ["USER", "ADMIN"], me);
   };
 }
 

@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as GoogleStrategy } from "passport-google-oauth2";
-import { usersManager } from "../data/mongo/managers/manager.mongo.js";
+import { usersManager } from "../dao/index.factory.js";
 import { createHash, verifyHash } from "../helpers/hash.helper.js";
 import { createToken } from "../helpers/token.helper.js";
 
@@ -30,17 +30,15 @@ passport.use(
         data.password = createHash(password);
 
         const response = await usersManager.createOne(data);
-        const tokenPayload = {
-          user_id: response._id,
-          email: response.email,
-          role: response.role,
-        };
-        const token = createToken(tokenPayload);
+        // const tokenPayload = {
+        //   user_id: response._id,
+        //   email: response.email,
+        //   role: response.role,
+        // };
+        // const token = createToken(tokenPayload);
+        // req.token=token;
+        done(null, response);
         
-        // devolvé el token junto con el usuario
-        done(null, { ...response._doc, token });
-        
-
       } catch (error) {
         done(error);
       }
@@ -72,10 +70,10 @@ passport.use(
           email: response.email,
           role: response.role,
         };
+        console.log("Data for token:", data)
         const token = createToken(data);
-        
-        // devolvé el token junto con el usuario
-        done(null, { ...response._doc, token });
+        req.token = token;
+        done(null, response);
         
       } catch (error) {
         done(error);

@@ -1,35 +1,41 @@
 const register = async (req, res) => {
-    const response = req.user;
-    const token = req.token;
-    const opts = {
-        httpOnly: true,
-        secure: process.env.COOKIE_KEY === "production",
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-    };
-    res.cookie("token", token, opts).json201(response, "registered");
+  const response = req.user;
+  res.json201(response, "registered"); 
 };
-const login = async (req, res) => {
-    const response = req.user;
-    const token = req.token;
-    const opts = {
-        httpOnly: true,
-        secure: process.env.COOKIE_KEY === "production",
-        sameSite: "strict",
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-    };
-    res.cookie("token", token, opts).json200(response, "Logged in");
+ const login = async (req, res, next) => {
+  try {
+    const user = req.user;
+    const token = req.token; 
+
+    if (!token) return res.json401("No token provided");
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, 
+    });
+
+    res.json200({ user });
+  } catch (error) {
+    next(error);
+  }
 };
+
+
 const me = (req, res) => res.json200({
     email: req.user.email,
     avatar: req.user.avatar,
 });
 const online = async (req, res) => {
-    if (!req.user.user_id) {
-        return res.json401("user not authenticated")
-    };
-    res.json200({ user: req.user })
+  const user = req.user || null;
+
+  if (!user || !user.user_id) {
+    return res.json200({ user: null }, "User not authenticated");
+  }
+
+  return res.json200({ user }, "User authenticated");
 };
+
+
 const signout = async (req, res) => {
     res.clearCookie("token").json200(null, "signed out");
 }

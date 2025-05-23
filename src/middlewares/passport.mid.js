@@ -30,13 +30,7 @@ passport.use(
         data.password = createHash(password);
 
         const response = await usersManager.createOne(data);
-        // const tokenPayload = {
-        //   user_id: response._id,
-        //   email: response.email,
-        //   role: response.role,
-        // };
-        // const token = createToken(tokenPayload);
-        // req.token=token;
+
         done(null, response);
         
       } catch (error) {

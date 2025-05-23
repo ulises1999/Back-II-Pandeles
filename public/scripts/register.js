@@ -1,3 +1,4 @@
+
 document.querySelector("#register").addEventListener("click", async () => {
   try {
     const data = {
@@ -5,26 +6,29 @@ document.querySelector("#register").addEventListener("click", async () => {
       email: document.querySelector("#email").value,
       password: document.querySelector("#password").value,
     };
+
+    if (!data.name || !data.email || !data.password) {
+      return alert("All fields are required");
+    }
+
     const opts = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
       credentials: "include"
     };
-    const url = "/api/auth/register";
-    if (!data.name || !data.email || !data.password) {
-      return alert("All fields are required");
-    }
-    let response = await fetch(url, opts);
-    response = await response.json();
-    console.log(response);
-    if (response.error) {
-      alert(response.error.message || response.error);
+
+    const response = await fetch("/api/auth/register", opts);
+    const result = await response.json();
+
+    if (result.error) {
+      alert(result.error.message || result.error);
     } else {
+      alert("Usuario registrado. Ahora inicia sesión.");
       location.replace("/login");
     }
   } catch (error) {
     console.log(error);
-    alert(error);
+    alert("Ocurrió un error al registrarse.");
   }
 });

@@ -1,7 +1,7 @@
 import { addProductToCartService, readProductsFromUserService, updateQuantityService, updateStateService, removeProductFromCartService } from "../services/cart.service.js";
 const addProductToCart = async (req, res) => {
     const { product_id, quantity } = req.body;
-    const user_id = req.user._id;
+    const user_id = req.user.user_id;
     const one = await addProductToCartService(product_id, user_id, quantity);
     res.json201(one)
   };

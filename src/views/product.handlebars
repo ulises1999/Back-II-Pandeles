@@ -6,8 +6,9 @@
       <div class="card-body py-1 px-2">
         <h5 class="card-title py-1">USD {{product.price}} - {{product.stock}} u.</h5>
         <input type="number" name="quantity" id="quantity" value="1" max={{product.stock}}>
-        <button id={{product._id}} class="btn btn-success py-1 px-2">cart</button>
+        <button id="add-to-cart-detail-btn" data-product-id="{{product._id}}" class="btn btn-success py-1 px-2">Agregar al carrito</button>
       </div>
     </div>
   </section>
 </main>
+<script src="/scripts/cart.js"></script>

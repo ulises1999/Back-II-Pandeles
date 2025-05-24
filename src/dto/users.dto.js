@@ -16,7 +16,7 @@ class userDTO {
         this.isVerify = data.isVerify || false;
         this.verifyCode = crypto.randomBytes(12).toString("hex");
         if (PERSISTENCE === "mongo") {
-            this_createdAt = new Date();
+            this.createdAt = new Date();
             this.updatedAt = new Date();
         }
     }

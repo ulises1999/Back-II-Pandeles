@@ -1,4 +1,7 @@
 import dbConnect from "../helpers/dbConnect.helper.js";
+import User from "./mongo/models/users.model.js"; 
+import Product from "./mongo/models/products.model.js";
+import Cart from "./mongo/models/carts.model.js"
 
 const { PERSISTENCE, LINK_MONGO } = process.env;
 
@@ -20,7 +23,8 @@ switch (PERSISTENCE) {
     default:
         {
             await dbConnect(LINK_MONGO);
-            const { usersManager, productsManager, cartsManager } = await import("./mongo/managers/manager.mongo.js");
+            const { usersManager, productsManager} = await import("./mongo/managers/manager.mongo.js");
+            const {cartsManager}= await import("./mongo/managers/carts.mongo.js")
             dao = { productsManager, usersManager, cartsManager };
         }
         break;

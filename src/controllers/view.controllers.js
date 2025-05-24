@@ -43,7 +43,7 @@ const cartsView = async (req, res) => {
     const carts = await cartsViewService(user_id);
 
     const total = carts.reduce((acc, item) => {
-        return acc + item.quantity * item.product.price;
+        return acc + item.quantity * item.product_id.price;
     }, 0);
 
     res.status(200).render("cart", { title: "CART", carts, total });

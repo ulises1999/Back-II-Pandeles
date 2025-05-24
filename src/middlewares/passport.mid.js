@@ -66,8 +66,8 @@ passport.use(
         };
         console.log("Data for token:", data)
         const token = createToken(data);
-        req.token = token;
-        done(null, response);
+
+        done(null, response, { token: token }); // Pasa el usuario y el token en el objeto 'info'
         
       } catch (error) {
         done(error);

@@ -36,7 +36,7 @@ const addProductToCart = async (req, res) => {
   };
   const removeProductFromCart = async (req, res) => {
     const { id } = req.params;
-    const one = await readProductsFromUserService(id);
+    const one = await removeProductFromCartService(id);
     if (!one) {
       res.json404()
     }

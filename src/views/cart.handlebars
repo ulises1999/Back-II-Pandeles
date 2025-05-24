@@ -6,12 +6,12 @@
       {{#each carts}}
         <div class="col-md-4 mb-3">
           <div class="card h-100">
-            <img src="{{this.product.photo}}" class="card-img-top" alt="{{this.product.title}}" style="height: 200px; object-fit: cover;">
+            <img src="{{this.product.photo}}" class="card-img-top" alt="{{this.product_id.title}}" style="height: 200px; object-fit: cover;">
             <div class="card-body">
-              <h5 class="card-title">{{this.product.title}}</h5>
-              <p class="card-text">Precio: ${{this.product.price}}</p>
+              <h5 class="card-title">{{this.product_id.title}}</h5>
+              <p class="card-text">Precio: ${{this.product_id.price}}</p>
               <p class="card-text">Cantidad: {{this.quantity}}</p>
-              <p class="card-text">Subtotal: ${{multiply this.quantity this.product.price}}</p>
+              <p class="card-text">Subtotal: ${{multiply this.quantity this.product_id.price}}</p>
             </div>
           </div>
         </div>

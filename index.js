@@ -4,6 +4,7 @@ import express from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import { engine } from "express-handlebars";
+import Handlebars from "handlebars";
 import __dirname from "./utils.js";
 import errorHandler from "./src/middlewares/errorHandler.mid.js";
 import pathHandler from "./src/middlewares/pathHandler.mid.js";
@@ -16,9 +17,14 @@ const ready = async () => console.log('server ready on port ' + port);
 ;
 server.listen(port, ready);
 
+Handlebars.registerHelper("multiply", function (a, b) {
+  return a * b;
+});
+
 server.engine('handlebars', engine());
 server.set('view engine', 'handlebars');
 server.set('views', __dirname + '/src/views');
+server.engine('handlebars', engine({ handlebars: Handlebars }));
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));

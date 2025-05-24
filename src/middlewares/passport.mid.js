@@ -4,6 +4,7 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth2";
 import { usersManager } from "../dao/index.factory.js";
 import { createHash, verifyHash } from "../helpers/hash.helper.js";
 import { createToken } from "../helpers/token.helper.js";
+import sendEmailOfRegister from "../helpers/registerEmail.helper.js";
 
 const {
   SECRET,
@@ -30,9 +31,9 @@ passport.use(
         data.password = createHash(password);
 
         const response = await usersManager.createOne(data);
-
+        await sendEmailOfRegister({ email, verifyCode });
         done(null, response);
-        
+
       } catch (error) {
         done(error);
       }
@@ -67,8 +68,8 @@ passport.use(
         console.log("Data for token:", data)
         const token = createToken(data);
 
-        done(null, response, { token: token }); // Pasa el usuario y el token en el objeto 'info'
-        
+        done(null, response, { token: token });
+
       } catch (error) {
         done(error);
       }

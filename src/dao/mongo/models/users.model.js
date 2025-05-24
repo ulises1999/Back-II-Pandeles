@@ -7,6 +7,8 @@ const schema = new Schema(
         role: { type: String, default: "USER", enum: ["USER", "ADMIN", "PREM"] },
         email: { type: String, required: true, index: true, unique: true },
         password: { type: String, required: true },
+        isVerify: {type: Boolean,default:false},
+        verifyCode: {type: string, required:true},
     },
     { timestamps: true }
 );

@@ -8,7 +8,7 @@ document.querySelector("#login").addEventListener("click", async () => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
-      credentials: "include", // mantiene cookies
+      credentials: "include", 
     };
     const url = "/api/auth/login";
     const response = await fetch(url, opts);

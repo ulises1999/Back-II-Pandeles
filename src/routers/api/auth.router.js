@@ -1,7 +1,7 @@
 import CustomRouter from "../custom.router.js";
 import passport from "../../middlewares/passport.mid.js";
 import passportCb from "../../middlewares/passportCb.mid.js";
-import { register, login, me, google, online, badAuth, signout } from "../../controllers/auth.controllers.js";
+import {verifyAccount, register, login, me, google, online, badAuth, signout } from "../../controllers/auth.controllers.js";
 
 
 class AuthRouter extends CustomRouter {
@@ -44,6 +44,7 @@ class AuthRouter extends CustomRouter {
       google
     );
     this.read("/me", ["USER", "ADMIN"], me);
+    this.read("/email/:email/code/:code",["PUBLIC"],verifyAccount)
   };
 }
 

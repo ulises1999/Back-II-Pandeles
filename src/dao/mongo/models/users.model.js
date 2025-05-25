@@ -8,7 +8,7 @@ const schema = new Schema(
         email: { type: String, required: true, index: true, unique: true },
         password: { type: String, required: true },
         isVerify: {type: Boolean,default:false},
-        verifyCode: {type: string, required:true},
+        verifyCode: {type: String , required:true},
     },
     { timestamps: true }
 );

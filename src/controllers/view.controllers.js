@@ -142,5 +142,14 @@ const registerView = (req, res) => {
 const loginView = (req, res) => {
     res.status(200).render("login", { title: "LOGIN FORM" });
 };
+const verifyView = (req, res) => {
+  try {
+    res.status(200).render("verify", { title: "VERIFY YOUR ACCOUNT" });
+  } catch (error) {
+    console.log(error);
+    const statusCode = error.statusCode || 500;
+    res.status(statusCode).render("error");
+  }
+};
 
-export { homeView, profileView, detailsView, cartsView, registerView, loginView };
+export { verifyView,homeView, profileView, detailsView, cartsView, registerView, loginView };

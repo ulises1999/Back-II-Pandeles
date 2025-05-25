@@ -1,25 +1,24 @@
-import crypto from "crypto";
+    import crypto from "crypto";
+    import { createHash } from "../helpers/hash.helper.js"; // Importa createHash
 
-const { PERSISTENCE } = process.env;
+    const { PERSISTENCE } = process.env;
 
-class userDTO {
-    constructor(data) {
-        if (PERSISTENCE !== "mongo") {
-            this._id = crypto.randomBytes(12).toString("hex");
-        }
-        this.name = data.name;
-        this.data = data.data;
-        this.email = data.email;
-        this.password = data.password;
-        this.role = data.role || "USER";
-        this.avatar = data.avatar || "https://cdn-icons-png.flaticon.com/512/149/149071.png";
-        this.isVerify = data.isVerify || false;
-        this.verifyCode = crypto.randomBytes(12).toString("hex");
-        if (PERSISTENCE === "mongo") {
-            this.createdAt = new Date();
-            this.updatedAt = new Date();
+    class userDTO {
+        constructor(data) {
+            if (PERSISTENCE !== "mongo") {
+                this._id = crypto.randomBytes(12).toString("hex");
+            }
+            this.name = data.name;
+            this.email = data.email;
+            // *** CAMBIO CLAVE AQUÍ: Hashear la contraseña en el DTO ***
+            this.password = createHash(data.password); // Hashea la contraseña al construir el DTO
+            
+            this.role = data.role || "USER";
+            this.photo = data.photo || "https://media.lordicon.com/icons/wired/lineal/44-avatar-user-in-circle.svg";
+            
+            this.isVerify = data.isVerify || false;
+            this.verifyCode = crypto.randomBytes(12).toString("hex");
         }
     }
-}
 
-export default userDTO;
+    export default userDTO;

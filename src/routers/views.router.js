@@ -1,5 +1,5 @@
 import CustomRouter from "./custom.router.js";
-import { homeView, profileView, detailsView, cartsView, registerView, loginView  } from "../controllers/view.controllers.js";
+import { homeView, profileView, detailsView, cartsView, registerView,verifyView, loginView  } from "../controllers/view.controllers.js";
 
 class ViewsRouter extends CustomRouter {
   constructor() {
@@ -10,6 +10,7 @@ class ViewsRouter extends CustomRouter {
     this.read("/cart/:user_id", ["USER"], cartsView);
     this.read("/register", ["PUBLIC"], registerView);
     this.read("/login", ["PUBLIC"], loginView);
+    this.read("/verify",["PUBLIC"],verifyView);
   }
 }
 export default new ViewsRouter().getRouter();

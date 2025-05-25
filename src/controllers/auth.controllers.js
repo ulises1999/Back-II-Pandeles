@@ -73,5 +73,12 @@ const google = async (req, res) => {
     const response = req.user
     res.json200(response);
 }
+const verifyAccount = async (req, res)=> {
+  const { email, code } = req.params
+  const user = await usersManager.readBy({ email, verifyCode: code})
+  if (!user) return res.json401()
+  await usersManager.updateById(user._id, { isVerify: true })
+res.json200("VERIFIED")
+}
 
-export { register, login, me, signout, badAuth, online, google };
+export { verifyAccount,register, login, me, signout, badAuth, online, google };

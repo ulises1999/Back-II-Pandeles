@@ -18,4 +18,4 @@ const sendEmailOfRegister = async ({ email, verifyCode }) =>
     html: `<h1>CODIGO PARA VERIFICAR LA CUENTA: ${verifyCode}</h1>`,
   });
 
-export default sendEmailOfRegister;
+export default sendEmailOfRegister; 

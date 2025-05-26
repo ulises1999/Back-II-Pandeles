@@ -1,12 +1,3 @@
-{{!-- <main class="d-flex flex-column align-items-center w-100 flex-grow-1">
-  <h1 class="bg-success-subtle p-2 text-center text-success w-100">Mi Perfil</h1>
-  <section class="m-3 d-flex flex-column justify-content-evenly flex-wrap align-items-center" style="width: 380px;">
-    <p class="card-title py-1 text-center w-100">{{profile.name}}</p>
-    <p class="card-title py-1 text-center w-100">{{profile.email}}</p>
-    <p class="card-title py-1 text-center w-100">{{profile.date}}</p>
-    <img class="w-100" src={{profile.avatar}} />
-  </section>
-</main> --}}
 <main class="container mx-auto p-4 md:p-8 min-h-screen flex items-center justify-center" style="background-color: #f3f4f6; min-height: 100vh;">
     <div class="bg-white shadow-xl rounded-lg overflow-hidden w-full max-w-md md:max-w-lg lg:max-w-xl p-6 md:p-8" style="text-align: center; border-radius: 0.5rem;">
         <h1 style="font-size: 2.25rem; font-weight: bold; color: #10b981; margin-bottom: 1.5rem;">
@@ -14,20 +5,20 @@
         </h1>
 
         <div style="display: flex; flex-direction: column; align-items: center; margin-bottom: 1.5rem;">
-            {{!-- Imagen de perfil del usuario --}}
+
             <img 
                 src="{{profile.photo}}" 
                 alt="Foto de perfil de {{profile.email}}" 
                 style="width: 160px; height: 160px; border-radius: 50%; object-fit: cover; border: 4px solid #10b981; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); margin-bottom: 1rem;"
-                onerror="this.onerror=null; this.src='https://placehold.co/160x160/CCCCCC/333333?text=No+Foto';" {{!-- Fallback si la imagen no carga --}}
+                onerror="this.onerror=null; this.src='https://placehold.co/160x160/CCCCCC/333333?text=No+Foto';"
             >
             
-            {{!-- Email del usuario --}}
+
             <p style="font-size: 1.5rem; font-weight: 600; color: #333; margin-bottom: 0.5rem;">
                 {{profile.email}}
             </p>
             
-            {{!-- Rol del usuario --}}
+
             <span style="display: inline-block; background-color: #d1fae5; color: #065f46; font-size: 0.875rem; font-weight: bold; padding: 0.25rem 0.75rem; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.05em;">
                 Rol: {{profile.role}}
             </span>
@@ -40,25 +31,22 @@
             <ul style="list-style: none; padding: 0; margin: 0; line-height: 1.5;">
                 <li style="margin-bottom: 0.5rem;">
                     <strong style="font-weight: 500;">ID de Usuario:</strong> 
-                    <span style="word-break: break-all;">{{profile._id}}</span> {{!-- Muestra el ID completo --}}
+                    <span style="word-break: break-all;">{{profile._id}}</span>
                 </li>
                 <li style="margin-bottom: 0.5rem;">
                     <strong style="font-weight: 500;">Verificación de Email:</strong> 
                     {{#if profile.isVerify}}
-                        <span style="color: #22c55e; font-weight: bold;">Verificado &#10004;</span> {{!-- Símbolo de checkmark Unicode --}}
+                        <span style="color: #22c55e; font-weight: bold;">Verificado &#10004;</span>
                     {{else}}
-                        <span style="color: #ef4444; font-weight: bold;">No Verificado &#10006;</span> {{!-- Símbolo de X Unicode --}}
-                        {{!-- Opcional: Botón para reenviar verificación si no está verificado --}}
-                        {{!-- <a href="/verify/resend" style="color: #3b82f6; text-decoration: underline; margin-left: 0.5rem;">Reenviar código</a> --}}
+                        <span style="color: #ef4444; font-weight: bold;">No Verificado &#10006;</span>
+
                     {{/if}}
                 </li>
-                {{!-- Puedes añadir más campos aquí si los tienes en tu modelo de usuario --}}
-                {{!-- <li style="margin-bottom: 0.5rem;"><strong style="font-weight: 500;">Nombre:</strong> {{profile.name}}</li> --}}
-                {{!-- <li style="margin-bottom: 0.5rem;"><strong style="font-weight: 500;">Creado el:</strong> {{profile.createdAt}}</li> --}}
+
             </ul>
         </div>
 
-        {{!-- Botones de acción --}}
+
         <div style="display: flex; flex-direction: column; justify-content: center; gap: 0.75rem;">
             <a href="/cart/{{profile._id}}" style="display: block; width: 100%; padding: 0.5rem 1rem; background-color: #3b82f6; color: white; font-weight: bold; border-radius: 0.5rem; text-decoration: none; transition: background-color 0.3s ease; text-align: center;">
                 Ver mi Carrito
@@ -69,3 +57,27 @@
         </div>
     </div>
 </main>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const signoutButton = document.getElementById('signout-button');
+        if (signoutButton) {
+            signoutButton.addEventListener('click', async () => {
+                try {
+                    const response = await fetch('/api/auth/signout', { method: 'GET' });
+                    if (response.ok) {
+                        alert('Sesión cerrada con éxito.');
+                        window.location.href = '/login'; // Redirige a la página de login
+                    } else {
+                        const errorData = await response.json();
+                        alert('Error al cerrar sesión: ' + (errorData.message || 'Error desconocido.'));
+                    }
+                } catch (error) {
+                    console.error('Error de red al cerrar sesión:', error);
+                    alert('Error de conexión al intentar cerrar sesión.');
+                }
+            });
+        }
+    });
+</script>

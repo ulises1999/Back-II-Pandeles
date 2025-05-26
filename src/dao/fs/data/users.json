@@ -1,0 +1,32 @@
+[
+  {
+    "_id": "e11dba03e1c3d41958ae7c2f",
+    "name": "cosme",
+    "email": "zafirope3@gmail.com",
+    "password": "$2b$10$jzsy2nk/oV0GRhe0kkDgHe17lS32/EP6GSXIuXEeDkOmKAajUk3oW",
+    "role": "USER",
+    "photo": "https://media.lordicon.com/icons/wired/lineal/44-avatar-user-in-circle.svg",
+    "isVerify": true,
+    "verifyCode": "ff973e650f800d8f6a93a177"
+  },
+  {
+    "_id": "da66d1c4981ba6426cefd190",
+    "name": "leandro",
+    "email": "leancavalca@gmail.com",
+    "password": "$2b$10$2fzgMEqtyCP/JC5RVyd4MeLn98Qwk8OnTbWH58xLOPAyNC9GfnNma",
+    "role": "USER",
+    "photo": "https://media.lordicon.com/icons/wired/lineal/44-avatar-user-in-circle.svg",
+    "isVerify": true,
+    "verifyCode": "c569270697a99bc7dc2aff00"
+  },
+  {
+    "_id": "55abb2c46acec5b20fec309a",
+    "name": "gustavo",
+    "email": "gustmaca@gmail.com",
+    "password": "$2b$10$F.cyEJGCNY1kdivOi5do5OGQhc/hCAAUzFdFvk.jIXYcc2J.VZJXC",
+    "role": "USER",
+    "photo": "https://media.lordicon.com/icons/wired/lineal/44-avatar-user-in-circle.svg",
+    "isVerify": true,
+    "verifyCode": "30f9e5ca965fb95643a5d93b"
+  }
+]

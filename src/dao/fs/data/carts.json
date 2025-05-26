@@ -1,0 +1,65 @@
+[
+  {
+    "_id": "7d918d4d9b17c357fd24402a",
+    "user_id": "e11dba03e1c3d41958ae7c2f",
+    "products": [
+      {
+        "product_id": "67fa783630e77e40aaa210cb",
+        "quantity": 7
+      },
+      {
+        "product_id": "6831f7e0d2cc9ff754e37e1a",
+        "quantity": 1
+      },
+      {
+        "product_id": "6831f7e0d2cc9ff754e37e1b",
+        "quantity": 3
+      },
+      {
+        "product_id": "6831f7e0d2cc9ff754e37e20",
+        "quantity": 1
+      }
+    ],
+    "state": "reserved",
+    "createdAt": "2025-05-26T22:37:49.486Z",
+    "updatedAt": "2025-05-26T22:37:49.486Z"
+  },
+  {
+    "_id": "598703b0458b1c28557dd18c",
+    "user_id": "da66d1c4981ba6426cefd190",
+    "products": [
+      {
+        "product_id": "6831f7e0d2cc9ff754e37e1d",
+        "quantity": 1
+      },
+      {
+        "product_id": "6831f7e0d2cc9ff754e37e1e",
+        "quantity": 1
+      },
+      {
+        "product_id": "6831f7e0d2cc9ff754e37e20",
+        "quantity": 2
+      }
+    ],
+    "state": "reserved",
+    "createdAt": "2025-05-26T22:41:10.264Z",
+    "updatedAt": "2025-05-26T22:41:10.264Z"
+  },
+  {
+    "_id": "40e0618bf01dc43019a95273",
+    "user_id": "55abb2c46acec5b20fec309a",
+    "products": [
+      {
+        "product_id": "67fa783630e77e40aaa210cb",
+        "quantity": 5
+      },
+      {
+        "product_id": "6831f7e0d2cc9ff754e37e1f",
+        "quantity": 5
+      }
+    ],
+    "state": "reserved",
+    "createdAt": "2025-05-26T22:43:09.741Z",
+    "updatedAt": "2025-05-26T22:43:09.741Z"
+  }
+]

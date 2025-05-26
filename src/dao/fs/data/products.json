@@ -1,0 +1,87 @@
+[
+  {
+    "_id": "67fa783630e77e40aaa210cb",
+    "title": "producto 1",
+    "photo": "https://media.lordicon.com/icons/wired/lineal/44-avatar-user-in-circle…",
+    "category": "categoria producto 1",
+    "price": 20,
+    "stock": 10
+  },
+  {
+    "_id": "6831f7e0d2cc9ff754e37e1a",
+    "title": "Pan Integral de Campo",
+    "photo": "https://placehold.co/600x400/FF5733/FFFFFF?text=Pan+Integral",
+    "category": "panaderia",
+    "price": 3.5,
+    "stock": 50,
+    "__v": 0,
+    "createdAt": "2025-05-24T16:46:24.375Z",
+    "updatedAt": "2025-05-24T16:46:24.375Z"
+  },
+  {
+    "_id": "6831f7e0d2cc9ff754e37e1b",
+    "title": "Medialunas de Manteca (x6)",
+    "photo": "https://placehold.co/600x400/33FF57/FFFFFF?text=Medialunas",
+    "category": "pasteleria",
+    "price": 4.8,
+    "stock": 30,
+    "__v": 0,
+    "createdAt": "2025-05-24T16:46:24.377Z",
+    "updatedAt": "2025-05-24T16:46:24.377Z"
+  },
+  {
+    "_id": "6831f7e0d2cc9ff754e37e1c",
+    "title": "Tarta de Manzana Individual",
+    "photo": "https://placehold.co/600x400/5733FF/FFFFFF?text=Tarta+Manzana",
+    "category": "pasteleria",
+    "price": 6.2,
+    "stock": 15,
+    "__v": 0,
+    "createdAt": "2025-05-24T16:46:24.377Z",
+    "updatedAt": "2025-05-24T16:46:24.377Z"
+  },
+  {
+    "_id": "6831f7e0d2cc9ff754e37e1d",
+    "title": "Pan de Centeno con Semillas",
+    "photo": "https://placehold.co/600x400/33A0FF/FFFFFF?text=Pan+Centeno",
+    "category": "panaderia",
+    "price": 4,
+    "stock": 40,
+    "__v": 0,
+    "createdAt": "2025-05-24T16:46:24.377Z",
+    "updatedAt": "2025-05-24T16:46:24.377Z"
+  },
+  {
+    "_id": "6831f7e0d2cc9ff754e37e1e",
+    "title": "Facturas Variadas (x12)",
+    "photo": "https://placehold.co/600x400/FF33A0/FFFFFF?text=Facturas",
+    "category": "pasteleria",
+    "price": 8,
+    "stock": 20,
+    "__v": 0,
+    "createdAt": "2025-05-24T16:46:24.377Z",
+    "updatedAt": "2025-05-24T16:46:24.377Z"
+  },
+  {
+    "_id": "6831f7e0d2cc9ff754e37e1f",
+    "title": "Baguette Rústica",
+    "photo": "https://placehold.co/600x400/A0FF33/FFFFFF?text=Baguette",
+    "category": "panaderia",
+    "price": 2.5,
+    "stock": 60,
+    "__v": 0,
+    "createdAt": "2025-05-24T16:46:24.377Z",
+    "updatedAt": "2025-05-24T16:46:24.377Z"
+  },
+  {
+    "_id": "6831f7e0d2cc9ff754e37e20",
+    "title": "Brownie de Chocolate",
+    "photo": "https://placehold.co/600x400/FFC133/FFFFFF?text=Brownie",
+    "category": "pasteleria",
+    "price": 3,
+    "stock": 25,
+    "__v": 0,
+    "createdAt": "2025-05-24T16:46:24.377Z",
+    "updatedAt": "2025-05-24T16:46:24.377Z"
+  }
+]

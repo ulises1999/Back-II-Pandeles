@@ -8,16 +8,30 @@ class FileManager {
   async _readFile() {
     try {
       const data = await fs.readFile(this.path, "utf-8");
+
+      if (data.trim() === "") {
+        return [];
+      }
       return JSON.parse(data);
     } catch (error) {
+
       if (error.code === "ENOENT") {
         await fs.writeFile(this.path, "[]");
         return [];
-      } else {
+      } 
+ 
+      else if (error instanceof SyntaxError) {
+        console.warn(`Advertencia: El archivo ${this.path} contiene JSON inválido. Se inicializará como vacío.`);
+        await fs.writeFile(this.path, "[]"); 
+        return [];
+      }
+
+      else {
         throw error;
       }
     }
   }
+
   async _writeFile(data) {
     await fs.writeFile(this.path, JSON.stringify(data, null, 2));
   }
@@ -62,7 +76,6 @@ class FileManager {
     await this._writeFile(items);
     return deletedItem;
   };
-
 }
 
 export default FileManager;

@@ -2,7 +2,7 @@ import dbConnect from "../helpers/dbConnect.helper.js";
 import User from "./mongo/models/users.model.js"; 
 import Product from "./mongo/models/products.model.js";
 import Cart from "./mongo/models/carts.model.js"
-
+// Se que no uso estos ultimos 3 imports, pero misteriosamente si los pongo funciona
 const { PERSISTENCE, LINK_MONGO } = process.env;
 
 let dao = {};

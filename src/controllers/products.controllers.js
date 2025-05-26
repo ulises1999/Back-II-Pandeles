@@ -22,11 +22,7 @@ const readById=async(req,res)=> {
     if(!response) return res.json404()
     res.json200(response)
 }
-// const readAll=async(req,res)=>{
-//     const response = await productsService.readAll();
-//     if(response.length===0) return res.json404()
-//     res.json200(response)
-// }
+
 const updateById=async(req,res)=>{
     const {id}= req.params
     const data= req.body

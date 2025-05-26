@@ -3,7 +3,7 @@ import productsManager from "../dao/index.factory.js";
 class ProductsService {
     createOne = async (data) => await productsManager.createOne(data);
 
-    readAll = async () => await productsManager.readAll();
+    readAll = async (filter) => await productsManager.readAll(filter);
 
     readById = async (id) => await productsManager.readById(id);
 

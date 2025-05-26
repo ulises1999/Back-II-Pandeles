@@ -16,7 +16,7 @@ switch (PERSISTENCE) {
             const { productsManager, usersManager } = await import(
                 "./fs/manager.fs.js"
             );
-            const { cartsManager } = await import("./fs/carts.fs.js");
+            const { cartsManager } = await import("./fs/cart.fs.js");
             dao = { productsManager, usersManager, cartsManager };
         }
         break;

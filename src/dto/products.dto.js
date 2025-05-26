@@ -20,3 +20,4 @@ constructor(data){
     }
  }
 }
+export default ProductDTO;

@@ -20,30 +20,20 @@ import UserDTO from "../dto/users.dto.js";
         { passReqToCallback: true, usernameField: "email" },
         async (req, email, password, done) => {
           try {
-
+            let data=req.body;
             const user = await usersManager.readBy({ email });
             if (user) {
-              return done(null, null, {
+              return done(null, false, {
                 message: "Email already in use",
                 statusCode: 400,
               });
             }
-
-            
-            const newUserDTO = new UserDTO(req.body); 
-            
-            
-            const response = await usersManager.createOne(newUserDTO); 
-            
-
-            
-            await sendEmailOfRegister({ email: response.email, verifyCode: response.verifyCode });
-            
-            
-            done(null, response);
+ 
+            const response = await usersManager.createOne(new UserDTO(data)); 
+              await sendEmailOfRegister({ email, verifyCode: response.verifyCode });
+              done(null, response);
 
           } catch (error) {
-            console.error("Error en estrategia de registro:", error);
             done(error);
           }
         }
@@ -59,21 +49,21 @@ import UserDTO from "../dto/users.dto.js";
           try {
             const response = await usersManager.readBy({ email });
             if (!response) {
-              return done(null, null, {
+              return done(null, false, {
                 message: "Invalid credentials",
                 statusCode: 401,
               });
             }
             const verifyAccount= response.isVerify
-            if(!isVerify){
-               return done(null, null, {
+            if(!verifyAccount){
+               return done(null, false, {
                 message: "Invalid credentials",
                 statusCode: 401,
               });
             }
             const verify = verifyHash(password, response.password);
             if (!verify) {
-              return done(null, null, {
+              return done(null, false, {
                 message: "Invalid credentials",
                 statusCode: 401,
               });
@@ -83,9 +73,9 @@ import UserDTO from "../dto/users.dto.js";
               email: response.email,
               role: response.role,
             };
-            console.log("Data for token:", data)
-            const token = createToken(data);
 
+            const token = createToken(data);
+            req.token =token;
             done(null, response, { token: token });
 
           } catch (error) {

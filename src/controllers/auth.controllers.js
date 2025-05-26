@@ -1,68 +1,79 @@
-import { usersManager } from "../dao/mongo/managers/manager.mongo.js";
+import { usersManager } from "../dao/index.factory.js";
+import {createToken,verifyToken} from "../helpers/token.helper.js"
 
-
-const register = async (req, res) => {
-  const response = req.user;
-  res.json201(response, "registered"); 
-};
+const register = async (req, res) => 
+   {
+   const response = req.user;
+   res.json201(response, "registered");
+ };
 
 const login = async (req, res) => {
   try {
-    
-    if (!req.user || !req.token) {
-      
-      return res.json500("Error interno: Usuario o token no disponibles después del login.");
-    }
-
-    
-    res.cookie('token', req.token, {
-      maxAge: 1000 * 60 * 60 * 24 * 7, 
-      httpOnly: true, 
-      
+    const user = req.user;
+    const token = createToken({
+      user_id: user._id,
+      role: user.role,
     });
-
-    
-    return res.json200({ message: "Login exitoso", user: req.user });
-
+    const cookieOptions = {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "strict",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    };
+    res.cookie("token", token, cookieOptions).status(200).json({
+      status: "success",
+      payload: user,
+      message: "Logged in",
+    });
   } catch (error) {
-    console.error("Error en el controlador de login:", error);
-    res.json500("Error interno del servidor durante el login.");
+    res.status(error.statusCode || 500).json({
+      status: "error",
+      message: error.message,
+    });
   }
 };
-
 
 const me = (req, res) => res.json200({
-    email: req.user.email,
-    avatar: req.user.avatar,
+  email: req.user.email,
+  avatar: req.user.avatar,
 });
-const online = async (req, res) => {
-  const user = req.user || null;
+const online = async (req, res) =>{ 
 
-  if (!user || !user.user_id) {
-    return res.json200({ user: null }, "User not authenticated");
+try {
+    const token = req.cookies.token;
+    if (!token) {
+      return res.json200({ user: null, online: false });
+    }
+    const user = verifyToken(token);
+    if (user && user.user_id) {
+      return res.json200({ user: { user_id: user.user_id }, online: true });
+    } else {
+      return res.json200({ user: null, online: false });
+    }
+  } catch (error) {
+    console.error("Error verificando token en /online:", error);
+    return res.json200({ user: null, online: false });
   }
-
-  return res.json200({ user }, "User authenticated");
-};
-
-
-const signout = async (req, res) => {
-    res.clearCookie("token").json200(null, "signed out");
 }
+const signout = async (req, res) => {
+  res.clearCookie("token").json200(null, "signed out");
+}
+
 const badAuth = async (req, res) => {
-    res.json401("bad auth from redirect")
+  res.json401("bad auth from redirect")
 }
 
 const google = async (req, res) => {
-    const response = req.user
-    res.json200(response);
-}
-const verifyAccount = async (req, res)=> {
-  const { email, code } = req.params
-  const user = await usersManager.readBy({ email, verifyCode: code})
-  if (!user) return res.json401()
-  await usersManager.updateById(user._id, { isVerify: true })
-res.json200("VERIFIED")
+  const response = req.user
+  res.json200(response);
 }
 
-export { verifyAccount,register, login, me, signout, badAuth, online, google };
+const verifyAccount = async (req, res) => {
+  const { email, code } = req.params
+  const user = await usersManager.readBy({ email, verifyCode: code })
+  if (!user) return res.json401()
+  await usersManager.updateById(user._id, { isVerify: true })
+  res.json200("VERIFIED")
+}
+
+export { verifyAccount, register, login, me, signout, badAuth, online, google };

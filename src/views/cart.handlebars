@@ -1,47 +1,20 @@
-{{!-- <main class="container py-4">
-  <h1 class="text-success mb-4">Carrito de Compras</h1>
 
-  {{#if carts.length}}
-    <div class="row">
-      {{#each carts}}
-        <div class="col-md-4 mb-3">
-          <div class="card h-100">
-            <img src="{{this.product.photo}}" class="card-img-top" alt="{{this.product_id.title}}" style="height: 200px; object-fit: cover;">
-            <div class="card-body">
-              <h5 class="card-title">{{this.product_id.title}}</h5>
-              <p class="card-text">Precio: ${{this.product_id.price}}</p>
-              <p class="card-text">Cantidad: {{this.quantity}}</p>
-              <p class="card-text">Subtotal: ${{multiply this.quantity this.product_id.price}}</p>
-            </div>
-          </div>
-        </div>
-      {{/each}}
-    </div>
-
-    <hr class="my-4">
-    <h3 class="text-end">Total a pagar: ${{total}}</h3>
-  {{else}}
-    <p class="alert alert-warning">Tu carrito está vacío.</p>
-  {{/if}}
-</main> --}}
 <main class="container py-4">
     <h1 class="text-success mb-4">Carrito de Compras</h1>
-
-    {{!-- 'carts' ahora es el array de productos dentro del carrito del usuario --}}
     {{#if carts.length}}
         <div class="row">
             {{#each carts}}
                 <div class="col-md-4 mb-3">
                     <div class="card h-100">
-                        {{!-- Accedemos a product_id.photo directamente --}}
+
                         <img src="{{this.product_id.photo}}" class="card-img-top" alt="{{this.product_id.title}}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
-                            {{!-- Accedemos a product_id.title directamente --}}
+
                             <h5 class="card-title">{{this.product_id.title}}</h5>
-                            {{!-- Accedemos a product_id.price directamente --}}
+
                             <p class="card-text">Precio: ${{this.product_id.price}}</p>
                             <p class="card-text">Cantidad: {{this.quantity}}</p>
-                            {{!-- Helper multiply para el subtotal --}}
+
                             <p class="card-text">Subtotal: ${{multiply this.quantity this.product_id.price}}</p>
                         </div>
                     </div>

@@ -9,11 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
             await addToCart(productId, quantity);
         });
     });
-
-
     const productDetailAddToCartButton = document.getElementById('add-to-cart-detail-btn');
     const quantityInput = document.getElementById('quantity');
-
     if (productDetailAddToCartButton) {
         productDetailAddToCartButton.addEventListener('click', async (event) => {
             const productId = event.target.dataset.productId;
@@ -23,12 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('La cantidad debe ser un número válido y mayor a 0.');
                 return;
             }
-
             await addToCart(productId, quantity);
         });
     }
-
-
     async function addToCart(productId, quantity) {
         try {
             const response = await fetch('/api/carts', {

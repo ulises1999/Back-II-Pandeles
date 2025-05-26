@@ -1,7 +1,7 @@
-import { homeViewService, profileViewService, detailsViewService, cartsViewService } from "../services/views.service.js";
+import viewsService from "../services/views.service.js"
 
 const homeView = async (req, res) => {
-    const product = await homeViewService();
+    const product = await viewsService.homeView()
     if (!product || product.length === 0) {
         return res.status(404).render("error", {
             title: "Error",
@@ -12,12 +12,12 @@ const homeView = async (req, res) => {
 };
 
 const profileView = async (req, res) => {
-    const { users_id } = req.params;
-    const profile = await profileViewService(users_id);
+    const { user_id } = req.params;
+    const profile = await viewsService.profileView(user_id);
     if (!profile) {
         return res.status(404).render("error", {
             title: "Usuario no encontrado",
-            message: ` No se encontró el perfil con ID: ${users_id} `,
+            message: ` No se encontró el perfil con ID: ${user_id} `,
         });
     }
     res.status(200).render("profile", { title: "PROFILE", profile });
@@ -25,7 +25,7 @@ const profileView = async (req, res) => {
 
 const detailsView = async (req, res) => {
     const { product_id } = req.params;
-    const product = await detailsViewService(product_id);
+    const product = await viewsService.detailsView(product_id);
     if (!product) {
         return res.status(404).render("error", {
             title: "Producto no encontrado",
@@ -40,7 +40,7 @@ const detailsView = async (req, res) => {
 const cartsView = async (req, res, next) => {
     try {
         const { user_id } = req.params; 
-        const cartProducts = await cartViewService(user_id); 
+        const cartProducts = await viewsService.cartsView(user_id); 
 
         let total = 0;
         if (cartProducts && cartProducts.length > 0) {
